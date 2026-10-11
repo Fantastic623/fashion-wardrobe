@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时尚衣橱 - 登录/注册</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .auth-tab.active {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            border-bottom: 2px solid #667eea;
+        }
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2>时尚衣橱</h2>
+                <p>开启您的时尚之旅</p>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">登录</button>
+                <button class="auth-tab" onclick="switchTab('register')">注册</button>
+            </div>
+            <div class="auth-body">
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" placeholder="请输入用户名">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" placeholder="请输入密码">
+                        <span class="error"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">登录</button>
+                    <div class="auth-footer">
+                        <p>还没有账号？ <a href="#" onclick="switchTab('register')">立即注册</a></p>
+                    </div>
+                </form>
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="reg-username">用户名</label>
+                        <input type="text" id="reg-username" name="username" placeholder="请输入用户名">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" name="email" placeholder="请输入邮箱">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">密码</label>
+                        <input type="password" id="reg-password" name="password" placeholder="请输入密码（至少6位）">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">确认密码</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="请再次输入密码">
+                        <span class="error"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">注册</button>
+                    <div class="auth-footer">
+                        <p>已有账号？ <a href="#" onclick="switchTab('login')">立即登录</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const tabs = document.querySelectorAll('.auth-tab');
+
+            if (tab === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        if (window.location.hash === '#register') {
+            switchTab('register');
+        }
+    </script>
+</body>
+</html>

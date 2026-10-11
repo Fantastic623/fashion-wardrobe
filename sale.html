@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时尚衣橱 - 特惠专区</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .sale-hero {
+            background: linear-gradient(135deg, rgba(139, 168, 139, 0.9) 0%, rgba(107, 142, 107, 0.85) 100%),
+                        url('images/bk1.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-4px);
+        }
+        .back-btn svg {
+            transition: transform 0.3s ease;
+        }
+        .back-btn:hover svg {
+            transform: translateX(-2px);
+        }
+        .sale-hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .sale-hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        .sale-section {
+            padding: 60px 0;
+            background: var(--bg-cream);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-header h2 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        .sale-products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .sale-product-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        .sale-product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .sale-product-card .product-image {
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .sale-product-card .product-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .sale-product-card .btn-favorite {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        .sale-product-card .btn-favorite:hover {
+            transform: scale(1.1);
+        }
+        .sale-product-card .btn-favorite svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #999;
+            stroke-width: 2;
+        }
+        .sale-product-card .btn-favorite.active svg {
+            fill: #e74c3c;
+            stroke: #e74c3c;
+        }
+        .sale-product-card .product-info {
+            padding: 24px;
+        }
+        .sale-product-card h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .sale-product-card .product-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .sale-product-card .price {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .sale-product-card .price .original {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+        .sale-product-card .btn-add-cart {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sale-product-card .btn-add-cart:hover {
+            background: var(--primary-dark);
+        }
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .back-to-home:hover {
+            background: var(--primary);
+            color: white;
+        }
+        @media (max-width: 992px) {
+            .sale-products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+            .sale-products-grid {
+                grid-template-columns: 1fr;
+            }
+            .sale-hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">时尚<span>衣橱</span></a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="products.html">商品展示</a></li>
+                    <li><a href="cart.html">购物车</a></li>
+                    <li><a href="orders.html">订单管理</a></li>
+                    <li><a href="favorites.html">我的收藏</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="搜索商品..." id="searchInput">
+                    <button class="search-btn" onclick="searchProducts()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="user-actions">
+                    <a href="login.html" class="login-link">登录</a>
+                    <a href="login.html#register" class="register-link">注册</a>
+                    <div class="user-menu" style="display: none;">
+                        <div class="user-avatar">
+                            <span class="avatar-icon">👤</span>
+                            <span class="user-name">用户</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="orders.html">我的订单</a>
+                            <a href="cart.html">购物车</a>
+                            <a href="favorites.html">我的收藏</a>
+                            <a href="#" class="logout-btn">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sale-hero">
+        <div class="container">
+            <a href="index.html" class="back-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+                返回首页
+            </a>
+            <h1>限时特惠</h1>
+            <p>精选商品低至5折起</p>
+        </div>
+    </section>
+
+    <section class="sale-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>特惠精选</h2>
+                <p>超值折扣，限时抢购，买到就是赚到</p>
+            </div>
+            <div class="sale-products-grid" id="saleProductsGrid">
+                <!-- 特惠商品将通过JS动态加载 -->
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a href="#">品牌故事</a></li>
+                        <li><a href="#">企业文化</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>客户服务</h3>
+                    <ul>
+                        <li><a href="#">帮助中心</a></li>
+                        <li><a href="#">售后服务</a></li>
+                        <li><a href="#">配送说明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <ul>
+                        <li>电话：400-123-4567</li>
+                        <li>邮箱：service@fashion.com</li>
+                        <li>地址：北京市朝阳区时尚大厦</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <ul>
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">新浪微博</a></li>
+                        <li><a href="#">抖音号</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>时尚衣橱 版权所有 2026 | 京ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // 特惠商品数据（从products.html中筛选出的特惠商品）
+        const saleProductsData = [
+            { id: 3, name: '修身牛仔裤', price: 249, originalPrice: 399, sales: 35000, rating: 4.9, tag: '特惠', image: 'images/r3.jpg', url: 'product-jeans.html' },
+            { id: 6, name: '纯棉针织衫', price: 179, originalPrice: 259, sales: 21000, rating: 4.8, tag: '特惠', image: 'images/r6.jpg', url: 'product-sweater.html' },
+            { id: 7, name: '运动休闲裤', price: 159, originalPrice: 229, sales: 15000, rating: 4.6, tag: '特惠', image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400', url: 'product-detail.html' },
+            { id: 10, name: '时尚单肩包', price: 259, originalPrice: 359, sales: 9000, rating: 4.7, tag: '特惠', image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400', url: 'product-detail.html' },
+            { id: 14, name: '休闲针织衫', price: 179, originalPrice: 259, sales: 11000, rating: 4.7, tag: '特惠', image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400', url: 'product-detail.html' },
+            { id: 22, name: '羊毛针织衫', price: 269, originalPrice: 369, sales: 23000, rating: 4.8, tag: '特惠', image: 'https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?w=400', url: 'product-detail.html' }
+        ];
+
+        // 渲染特惠商品
+        function renderSaleProducts() {
+            const grid = document.getElementById('saleProductsGrid');
+            
+            grid.innerHTML = saleProductsData.map(product => `
+                <div class="sale-product-card">
+                    <a href="${product.url}">
+                        <div class="product-image" style="background-image: url('${product.image}');">
+                            <span class="product-tag">${product.tag}</span>
+                            <button class="btn-favorite ${isFavorite(product.id) ? 'active' : ''}" data-product-id="${product.id}" onclick="event.preventDefault(); toggleFavorite('${product.id}', '${product.name}', '¥${product.price}', '${product.image}', '${product.url}')">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <div class="product-meta">
+                            <span class="sales">已售 ${(product.sales / 10000).toFixed(1)}万+</span>
+                            <span class="rating">★★★★★ ${product.rating}</span>
+                        </div>
+                        <div class="price">¥${product.price} <span class="original">¥${product.originalPrice}</span></div>
+                        <button class="btn-add-cart" onclick="addToCart('${product.id}', '${product.name}', '¥${product.price}', '${product.image}', '${product.url}', 'M', '默认')">加入购物车</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // 初始化收藏按钮
+            initFavoriteButtons();
+        }
+
+        // 页面加载时渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSaleProducts();
+            updateDate();
+            checkLoginStatus();
+        });
+    </script>
+</body>
+</html>
